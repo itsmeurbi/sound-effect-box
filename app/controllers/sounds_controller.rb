@@ -25,6 +25,6 @@ class SoundsController < ApplicationController
   private
 
     def sound_params
-      params.require(:sound).permit(:image, :sound_file)
+      params.require(:sound).permit(:image, :sound_file, :sound_type)
     end
 end
