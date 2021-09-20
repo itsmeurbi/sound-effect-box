@@ -1,4 +1,4 @@
-<%= form_with(model: sound) do |f| %>
+<%= form_with(model: @sound) do |f| %>
   <% if sound.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(sound.errors.count, "error") %> prohibited this sound from being saved:</h2>
@@ -11,14 +11,28 @@
     </div>
   <% end %>
 
-  <%= f.label :image %>
-  <%= f.file_field :image %>
-  
-  <%= f.label :sound %>
-  <%= f.file_field :sound_file %>
-  
+  <div>
+    <%= f.label :image %>
+    <div>
+      <%= f.file_field :image %>
+    </div>
+  </div>
+    
+  <div>
+    <%= f.label :sound_file %>
+    <div>
+      <%= f.file_field :sound_file %>
+    </div>
+  </div>
+    
+  <div>
+    <%= f.label :sound_type %>
+    <div>
+      <%= f.select :sound_type, Sound.sound_types.map{ |k, _v| [k.titleize, k] } %>
+    </div>
+  </div>
 
-  <div class="actions">
+  <div>
     <%= f.submit %>
   </div>
 <% end %>
