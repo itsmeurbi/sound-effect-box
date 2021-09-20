@@ -1,5 +1,4 @@
 document.addEventListener("turbolinks:load", () => {
-  console.log("wcouwec")  
   const images = document.querySelectorAll("img")
   images.forEach((node) => setupClickListenner(node))
 })
