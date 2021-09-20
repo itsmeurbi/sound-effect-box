@@ -10,12 +10,15 @@
   </thead>
 
   <tbody>
-    <% @sounds.each do |sound| %>
-      <tr>
-        <td><%= image_tag(sound.image, style: "width: 150px; height: 150px;", "data-sound-id": "sound_#{sound.id}") %></td>
-        <td ><%= audio_tag(url_for(sound.sound_file), controls: true, preload: false, id: "sound_#{sound.id}", style: "display: none;") %></td>
-        <td><%= link_to 'Destroy', sound, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @sounds.group_by(&:sound_type).each do |sound_type, sounds| %>
+      <h2><%= sound_type.titleize %></h2>
+      <% sounds.each do |sound| %>
+        <tr>
+          <td><%= image_tag(sound.image, style: "width: 150px; height: 150px;", "data-sound-id": "sound_#{sound.id}") %></td>
+          <td ><%= audio_tag(url_for(sound.sound_file), controls: true, preload: false, id: "sound_#{sound.id}", style: "display: none;") %></td>
+          <td><%= link_to 'Destroy', sound, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
