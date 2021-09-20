@@ -1,30 +1,20 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Sounds</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @sounds.group_by(&:sound_type).each do |sound_type, sounds| %>
+  <h2><%= sound_type.titleize %></h2>
 
-  <tbody>
-    <% @sounds.group_by(&:sound_type).each do |sound_type, sounds| %>
-      <h2><%= sound_type.titleize %></h2>
-      <% sounds.each do |sound| %>
-        <tr>
-          <td><%= image_tag(sound.image, style: "width: 150px; height: 150px;", "data-sound-id": "sound_#{sound.id}") %></td>
-          <td ><%= audio_tag(url_for(sound.sound_file), controls: true, preload: false, id: "sound_#{sound.id}", style: "display: none;") %></td>
-          <td><%= link_to 'Destroy', sound, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
+  <div style="display: flex;">
+    <% sounds.each do |sound| %>
+      <div>
+        <%= image_tag(sound.image, style: "width: 150px; height: 150px; display: block; margin-right: 15px;", "data-sound-id": "sound_#{sound.id}") %>
+        <%= audio_tag(url_for(sound.sound_file), controls: true, preload: false, id: "sound_#{sound.id}", style: "display: none;") %>
+        <%= link_to 'Destroy', sound, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Sound', new_sound_path %>
+  </div>
+<% end %>
+<div style="margin-top: 15px;">
+  <%= link_to 'New Sound', new_sound_path %>
+</div>
 
 
